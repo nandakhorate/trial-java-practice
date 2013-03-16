@@ -1,4 +1,4 @@
-package com.ked.site;
+package com.ked.controller;
 
 import java.util.Map;
 
@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.ked.idao.SiteDAO;
+import com.ked.pojo.Site;
 
 @Controller
 @RequestMapping("/site")

@@ -1,4 +1,4 @@
-package com.ked.site;
+package com.ked.pojo;
 
 import java.io.Serializable;
 

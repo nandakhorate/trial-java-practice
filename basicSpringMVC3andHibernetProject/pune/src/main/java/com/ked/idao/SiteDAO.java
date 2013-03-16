@@ -1,4 +1,4 @@
-package com.ked.site;
+package com.ked.idao;
 
 import com.ked.generic.GenericDAO;
 import com.ked.generic.Kernel;
