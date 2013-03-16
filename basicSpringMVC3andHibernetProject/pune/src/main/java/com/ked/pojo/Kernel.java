@@ -1,4 +1,4 @@
-package com.ked.generic;
+package com.ked.pojo;
 
 public interface Kernel<K> {
 

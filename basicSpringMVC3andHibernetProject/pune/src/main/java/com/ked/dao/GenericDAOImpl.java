@@ -1,4 +1,4 @@
-package com.ked.generic;
+package com.ked.dao;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.ked.pojo.Kernel;
 
 
 @Repository

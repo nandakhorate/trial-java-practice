@@ -1,6 +1,8 @@
-package com.ked.generic;
+package com.ked.dao;
 
 import java.util.List;
+
+import com.ked.pojo.Kernel;
 
 
 public interface GenericDAO<K,T extends Kernel<K>> {
