@@ -31,7 +31,7 @@ CREATE TABLE `site` (
   `ADDRESS` varchar(255) DEFAULT NULL,
   `NAME` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`SITE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `site`
@@ -40,7 +40,8 @@ CREATE TABLE `site` (
 /*!40000 ALTER TABLE `site` DISABLE KEYS */;
 INSERT INTO `site` (`SITE_ID`,`ADDRESS`,`NAME`) VALUES 
  (1,'nerul','mumbai'),
- (2,'vishkapat','pune');
+ (2,'vishkapat','pune'),
+ (3,'zxcz','zxc');
 /*!40000 ALTER TABLE `site` ENABLE KEYS */;
 
 

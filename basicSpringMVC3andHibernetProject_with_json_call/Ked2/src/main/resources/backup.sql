@@ -313,7 +313,6 @@ INSERT INTO `site` (`SITE_ID`,`ADDRESS`,`NAME`) VALUES
  (7,'sdfsd','sdfds'),
  (8,'hjgjg','ghjhg'),
  (10,'dsfgfds','fdgfsd'),
- (11,'sdfgdsf','dsgdsf'),
  (12,'yyyyyy','yyyyyyyyy'),
  (13,'fgf','fgf'),
  (14,'sds','dfd');
