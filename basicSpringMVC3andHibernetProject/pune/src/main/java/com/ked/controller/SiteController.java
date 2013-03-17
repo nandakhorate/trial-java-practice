@@ -57,6 +57,7 @@ public class SiteController {
 
 	// BELOW CODE CHAGE IN EACH MODLE
 	// Just Replace Site string with your Object name.
+	
 	@Autowired
 	private SiteDAO<Long, Site> dao;
 	

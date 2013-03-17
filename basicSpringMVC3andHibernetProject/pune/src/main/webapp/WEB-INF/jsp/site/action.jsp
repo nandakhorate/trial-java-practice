@@ -3,7 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <%@ include file="../common/pageHead.jsp"%>
-<%@ include file="../js/siteJs.jsp"%>
+<%@ include file="siteJs.jsp"%>
 <body>
 	<div id="outer">
 		<div id="outer2">

@@ -2,15 +2,13 @@
 <div id="content">
 	<div id="column1">
 		<form:form id="frm" class="formular">
-			<h3>Customers</h3>
-			<a href="/pune/site/add">Add Site</a>
-
+			<h3>Site</h3>
+			<h3>Site</h3>
+			<a href="<%=request.getContextPath()%>/site/add">Add Site</a>
 			<div id="container">
-
 				<div class="demo_jui">
 					<c:if test="${!empty list}">
-						<table cellpadding="0" cellspacing="0" border="0" class="display"
-							id="example">
+						<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
 							<thead>
 								<tr>
 									<th>Site Name</th>
@@ -20,7 +18,7 @@
 							<tbody>
 								<c:forEach items="${list}" var="site">
 									<tr class="gradeX">
-										<td><a href="/pune/site/find/${site.id}">${site.name}</a>
+										<td><a href="<%=request.getContextPath()%>/site/find/${site.id}">${site.name}</a>
 										</td>
 										<td>${site.address}</td>
 									</tr>
@@ -31,6 +29,5 @@
 				</div>
 			</div>
 		</form:form>
-
 	</div>
 </div>
