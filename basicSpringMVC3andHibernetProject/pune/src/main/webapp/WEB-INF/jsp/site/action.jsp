@@ -9,9 +9,9 @@
 		<div id="outer2">
 			<%@ include file="../common/header.jsp"%>
 			<%@ include file="../common/menu.jsp"%>
-			<%@ include file="content.jsp"%>
+			<%@ include file="actioncontent.jsp"%>
 		</div>
+		<%@ include file="../common/footer.jsp"%>
 	</div>
-	<%@ include file="../common/footer.jsp"%>
 </body>
 </html>
