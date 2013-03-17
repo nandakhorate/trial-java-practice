@@ -88,7 +88,7 @@
 			<div id="content">
 				<div id="column1">
 					<h3>Site</h3>
-					<form:form method="post" action="${action}" commandName="site" name="sitefrm" id="sitefrm" class="formular">
+					<form:form method="post" action="${action}" commandName="frmObject" name="sitefrm" id="sitefrm" class="formular">
 						<%-- <form:errors path="*" cssClass="errorblock" element="div" /> --%>
 						<table>
 							<form:hidden path="id" /> 
