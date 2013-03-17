@@ -38,7 +38,7 @@ public class SiteController {
 
 	@RequestMapping("/deleteById/{siteId}")
 	public String delete(@PathVariable("siteId") Long id) {
-		Site site = siteDAO.load(id);
+		Site site = siteDAO.get(id);
 		siteDAO.delete(site);
 		return "redirect:"+ path +"/list";
 		
