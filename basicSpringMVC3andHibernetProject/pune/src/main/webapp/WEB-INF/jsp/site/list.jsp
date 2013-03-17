@@ -4,66 +4,12 @@
 <html>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <head>
-<title>Site Details</title>
-
-<style type="text/css" title="currentStyle">
-@import "<%=request.getContextPath()%>/media/css/default.css";
-
-@import "<%=request.getContextPath()%>/media/css/button.css";
-
-@import
-	"<%=request.getContextPath()%>/media/css/validationEngine.jquery.css";
-
-@import "<%=request.getContextPath()%>/media/css/template.css";
-</style>
-
-<style type="text/css" title="currentStyle">
-@import "<%=request.getContextPath()%>/media/css/demo_page.css";
-
-@import "<%=request.getContextPath()%>/media/css/demo_table_jui.css";
-
-@import
-	"<%=request.getContextPath()%>/media/themes/smoothness/jquery-ui-1.8.4.custom.css"
-	;
-</style>
-
-<script type="text/javascript" language="javascript"
-	src="<%=request.getContextPath()%>/media/js/jquery.min.js"></script>
-<script type="text/javascript" language="javascript"
-	src="<%=request.getContextPath()%>/media/js/jquery.js"></script>
-<script type="text/javascript" language="javascript"
-	src="<%=request.getContextPath()%>/media/js/jquery.dataTables.js"></script>
-<script type="text/javascript" charset="utf-8">
-	$(document).ready(function() {
-		oTable = $('#example').dataTable({
-			"bJQueryUI" : true,
-			"sPaginationType" : "full_numbers"
-		});
-	});
-</script>
-
-</head>
-
+<%@ include file="../common/pageHead.jsp"%>
 <body>
 	<div id="outer">
 		<div id="outer2">
-			<div id="header">
-				<h1>pune</h1>
-			</div>
-			<div id="menu">
-				<ul>
-					<li><a href="http://www.free-css.com/">Home</a>
-					</li>
-					<li><a href="http://www.free-css.com/">Products</a>
-					</li>
-					<li><a href="http://www.free-css.com/">Services</a>
-					</li>
-					<li><a href="http://www.free-css.com/">About Us</a>
-					</li>
-					<li><a href="http://www.free-css.com/">Contact Us</a>
-					</li>
-				</ul>
-			</div>
+			<%@ include file="../common/header.jsp"%>
+			<%@ include file="../common/menu.jsp"%>
 			<div id="content">
 				<div id="column1">
 					<form:form id="frm" class="formular">
@@ -94,16 +40,13 @@
 									</table>
 								</c:if>
 							</div>
+						</div>
 					</form:form>
-				</div>
-				<div id="footer">
-					<p>
-						Copyright &copy; 2012 Sitename.com. Design by <a href="#">Free
-							CSS Templates</a>.
-					</p>
+					
 				</div>
 			</div>
 		</div>
 	</div>
+	<%@ include file="../common/footer.jsp"%>
 </body>
 </html>
