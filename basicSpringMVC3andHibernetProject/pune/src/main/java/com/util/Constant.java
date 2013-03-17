@@ -1,4 +1,4 @@
-package com.ked.util;
+package com.util;
 
 public class Constant {
 	public static final String ROOTPATH = "/pune";

@@ -1,4 +1,4 @@
-package com.ked.dao;
+package com.ked.idao;
 
 import java.util.List;
 

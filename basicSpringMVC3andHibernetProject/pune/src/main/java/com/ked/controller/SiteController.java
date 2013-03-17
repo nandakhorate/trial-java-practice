@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ked.idao.SiteDAO;
 import com.ked.pojo.Site;
-import com.ked.util.Constant;
+import com.util.Constant;
 
 @Controller
 @RequestMapping("/site")
