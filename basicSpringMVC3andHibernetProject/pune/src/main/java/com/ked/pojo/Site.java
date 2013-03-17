@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="SITE")
-public class Site implements Kernel<Long>,Serializable{
+public class Site implements Kernel<Long>,Serializable,Cloneable{
 
 	private static final long serialVersionUID = 1L;
 
