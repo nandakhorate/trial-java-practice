@@ -17,56 +17,62 @@ import com.ked.pojo.Site;
 @Controller
 @RequestMapping("/site")
 public class SiteController {
+	String rootPath = "/pune";
+	String path = "/site";
 	
 	@Autowired
 	private SiteDAO<Long,Site> siteDAO;
 	
-	@RequestMapping(value="/sitelist", method = RequestMethod.GET)
-	public String listSite(Map<String, Object> map) {
-		map.put("sitelist", siteDAO.findAll());
-		return "/site/sitelist";
+	@RequestMapping(value="/list", method = RequestMethod.GET)
+	public String list(Map<String, Object> map) {
+		map.put("list", siteDAO.findAll());
+		return path + "/list";
 	}
 
 	
-	@RequestMapping(value = "/addsite", method = RequestMethod.POST)
-	public String addSite(@ModelAttribute("site") Site site, BindingResult result, ModelMap model) {
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String add(@ModelAttribute("site") Site site, BindingResult result, ModelMap model) {
 			siteDAO.persist(site);
-			return "redirect:/site/sitelist";
+			return "redirect:"+ path +"/list";
 	}
 
-	@RequestMapping("/deletesite/{siteId}")
-	public String deleteSite(@PathVariable("siteId") Long siteId) {
-		Site site = siteDAO.findById(siteId);
+	@RequestMapping("/deleteById/{siteId}")
+	public String delete(@PathVariable("siteId") Long id) {
+		Site site = siteDAO.findById(id);
 		siteDAO.delete(site);
-		return "redirect:/site/sitelist";
+		return "redirect:"+ path +"/list";
 		
 	}
 	
-	@RequestMapping(value="/addsite", method = RequestMethod.GET)
-	public String actionViewSite(Map<String, Object> map) {
+	/*
+	 * This method added new records.
+	 */
+	@RequestMapping(value="/add", method = RequestMethod.GET)
+	public String add(Map<String, Object> map) {
 		
 		map.put("site", new Site());
-		map.put("action","/pune/site/addsite");
-		return "/site/siteaction";
+		map.put("action",rootPath + path +"/add");
+		return path + "/action";
 	}
 	
 	
 	
-	@RequestMapping(value="/viewsite/{siteId}", method = RequestMethod.GET)
-	public String viewCustomer(Map<String, Object> map, @PathVariable("siteId") Long siteId) {
+	@RequestMapping(value="/find/{siteId}", method = RequestMethod.GET)
+	public String find(Map<String, Object> map, @PathVariable("siteId") Long id) {
 		
-		Site site = siteDAO.findById(siteId);
+		Site site = siteDAO.findById(id);
 		map.put("site", site);
-		map.put("action","/pune/site/updatesite");
-		map.put("view", "view");
-		return "/site/siteaction";
+		map.put("action",rootPath + path +"/update");
+		map.put("find", "find");
+		return path +"/action";
 	}
-	@RequestMapping(value = "/updatesite", method = RequestMethod.POST)
-	public String updateSite(@ModelAttribute("site")
+	
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String update(@ModelAttribute("site")
 	Site site, BindingResult result,ModelMap model) {
-
 			siteDAO.merge(site);
-			return "redirect:/site/sitelist";
+			return "redirect:"+ path +"/list";
 	}
 
 }

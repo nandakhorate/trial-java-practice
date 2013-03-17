@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,14 +35,14 @@ public abstract class GenericDAOImpl<K,T extends Kernel<K>> implements GenericDA
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void persist(T entity) {
 		LOGGER.debug("persist(): persisting entity " + entity);
-		sessionFactory.getCurrentSession().persist(entity);
+		getSession().persist(entity);
 		LOGGER.debug("persist(): persisted entity " + entity);
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void delete(T entity) {
 		LOGGER.debug("remove(): removing entity " + entity);
-		sessionFactory.getCurrentSession().delete(entity);
+		getSession().delete(entity);
 		LOGGER.debug("remove(): removing entity " + entity);
 	}
 
@@ -51,7 +52,7 @@ public abstract class GenericDAOImpl<K,T extends Kernel<K>> implements GenericDA
 			return null;
 		}
 		@SuppressWarnings("unchecked")
-		T entity = (T) sessionFactory.getCurrentSession().get(entityClass, (Serializable) id);
+		T entity = (T) getSession().get(entityClass, (Serializable) id);
 		LOGGER.debug("findById(): found entity => " + entity);
 		return entity;
 	}
@@ -59,14 +60,14 @@ public abstract class GenericDAOImpl<K,T extends Kernel<K>> implements GenericDA
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void merge(T entity) {
 		LOGGER.debug("merge(): merging entity " + entity);
-		sessionFactory.getCurrentSession().merge(entity);
+		getSession().merge(entity);
 		LOGGER.debug("merge(): merged entity " + entity);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<T> findAll(){
 		 LOGGER.debug("findAll(): finding All entity " + entityClass.getName());
-	     Query query = sessionFactory.getCurrentSession().createQuery("from " + entityClass.getName());
+	     Query query = getSession().createQuery("from " + entityClass.getName());
 	     LOGGER.debug("findAll(): found All entity " + entityClass.getName());
 	     return (List<T>) query.list();
 	            
@@ -79,7 +80,7 @@ public abstract class GenericDAOImpl<K,T extends Kernel<K>> implements GenericDA
 	@SuppressWarnings("unchecked")
 	
 	public List<T> findByNamedQuery(final String name, Object... params) {
-		Query query = sessionFactory.getCurrentSession().createQuery(name);
+		Query query = getSession().createQuery(name);
 
 		for (int i = 0; i < params.length; i++) {
 			query.setParameter(i + 1, params[i]);
@@ -88,5 +89,12 @@ public abstract class GenericDAOImpl<K,T extends Kernel<K>> implements GenericDA
 		final List<T> result = (List<T>) query.list();
 		return result;
 	}
+	  /**
+     * Gets the current session in use (creates one if necessary).
+     * @return Session object 
+     */
+    public Session getSession() {
+        return sessionFactory.getCurrentSession();
+    }
 
 }

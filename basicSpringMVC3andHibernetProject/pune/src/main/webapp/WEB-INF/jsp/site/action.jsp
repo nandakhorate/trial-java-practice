@@ -37,12 +37,12 @@
 			}
 		} */
 
-	function siteDelete() {
+	function deleteById() {
 		var checkFound = false;
 		var conf = "";
 		conf = confirm("Are you sure,you want to delete this Site?")
 		if (conf == true) {
-			document.sitefrm.action = "<%=request.getContextPath()%>/site/deletesite/"+ document.sitefrm.id.value;
+			document.sitefrm.action = "<%=request.getContextPath()%>/site/deleteById/"+ document.sitefrm.id.value;
 			document.sitefrm.submit();
 		}
 	}
@@ -57,9 +57,9 @@
 
 	}
 	 */
-	function siteCancel() {
+	function cancel() {
 			document.sitefrm.method=""
-			document.sitefrm.action = "<%=request.getContextPath()%>/site/sitelist";
+			document.sitefrm.action = "<%=request.getContextPath()%>/site/list";
 			document.sitefrm.submit();
 
 	}
@@ -120,7 +120,7 @@
 							</tr> -->
 							<tr>
 								<c:choose>
-									<c:when test="${empty view}">
+									<c:when test="${empty find}">
 										<td><input class="styled-button-1" type="submit" value="Submit" /></td>
 										<td>
 											<input class="styled-button-1" type="submit"  value="Close all prompt" onclick="$.validationEngine.closePrompt('.formError',true)" />
@@ -131,9 +131,9 @@
 										<input class="styled-button-1" type="submit"  value="Update" onclick="$.validationEngine.closePrompt('.formError',true)" />
 										</td>
 										<td>
-										<input class="styled-button-1" type="submit"  value="Delete" onclick="siteDelete()" />
+										<input class="styled-button-1" type="submit"  value="Delete" onclick="deleteById()" />
 										</td>
-										<td><input type="button" class="styled-button-1" value="Cancel" onclick="siteCancel()"></td>
+										<td><input type="button" class="styled-button-1" value="Cancel" onclick="cancel()"></td>
 										<td>
 											<input class="styled-button-1" type="submit"  value="Close all prompt" onclick="$.validationEngine.closePrompt('.formError',true)" />
 										</td>
