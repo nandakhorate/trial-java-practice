@@ -8,8 +8,7 @@ function deleteById() {
 	var conf = "";
 	conf = confirm("Are you sure,you want to delete this Site?")
 	if (conf == true) {
-		document.frm.action = "<%=request.getContextPath()%>/site/deleteById/"
-				+ document.frm.id.value;
+		document.frm.action = "<%=request.getContextPath()%>/site/deleteById/"+ document.frm.id.value;
 		document.frm.submit();
 	}
 }
