@@ -32,13 +32,13 @@ public class SiteController {
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String add(@ModelAttribute("site") Site site, BindingResult result, ModelMap model) {
-			siteDAO.persist(site);
+			siteDAO.save(site);
 			return "redirect:"+ path +"/list";
 	}
 
 	@RequestMapping("/deleteById/{siteId}")
 	public String delete(@PathVariable("siteId") Long id) {
-		Site site = siteDAO.findById(id);
+		Site site = siteDAO.load(id);
 		siteDAO.delete(site);
 		return "redirect:"+ path +"/list";
 		
@@ -60,7 +60,7 @@ public class SiteController {
 	@RequestMapping(value="/find/{siteId}", method = RequestMethod.GET)
 	public String find(Map<String, Object> map, @PathVariable("siteId") Long id) {
 		
-		Site site = siteDAO.findById(id);
+		Site site = siteDAO.get(id);
 		map.put("site", site);
 		map.put("action",rootPath + path +"/update");
 		map.put("find", "find");
@@ -71,7 +71,7 @@ public class SiteController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String update(@ModelAttribute("site")
 	Site site, BindingResult result,ModelMap model) {
-			siteDAO.merge(site);
+			siteDAO.saveOrUpdate(site);
 			return "redirect:"+ path +"/list";
 	}
 

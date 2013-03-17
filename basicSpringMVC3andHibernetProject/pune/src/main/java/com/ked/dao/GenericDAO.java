@@ -2,61 +2,155 @@ package com.ked.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+
 import com.ked.pojo.Kernel;
 
 
 public interface GenericDAO<K,T extends Kernel<K>> {
-	/**
-	 * Method to create and/or update a NTM Entity to the database.
-	 * This method does not commit. The caller should handle all transaction related nuances.
-	 * 
-	 * @param entity
-	 */
-	public void persist(T entity);
-    
-	/**
-	 * Method to delete a NTM Entity from the database.
-	 * This method does not commit. The caller should handle all transaction related nuances.
-	 * 
-	 * @param entity
-	 */
-    public void delete(T entity);
-    
-	/**
-	 * Method to read a NTM Entity from the database.
-	 * This method does not need an active transaction.
-	 * 
-	 * @param id
-	 * @return T
-	 */
-    public T findById(Long id);
+	 /** 
+     * Persist the newInstance object into database.
+     * @param newInstance to save
+     * @return The identifier
+     **/
+    K save(T newInstance);
 
     /**
-     * Method to merge a detached object into the database.
-     * 
-     * @param entity
+     * Save or update.
+     * @param transientObject to save
      */
-    public void merge(T entity);
-	
-	/**
-	 * Method to read a NTM Entity from the database.
-	 * This method does not need an active transaction.
-	 * 
-	 * @param id
-	 * @return List<T>
-	 */
-    List<T> findAll();
+    void saveOrUpdate(T transientObject);
+    
+    /** 
+     * Retrieve a persisted object with a given id from the database.
+     * @param id to load
+     * @return An object of type T
+     */
+    T load(K id);
+    
+    /** 
+     * Retrieve a persisted object with a given id from the database.
+     * @param id to get
+     * @return An object of type T
+     */
+    T get(K id);
+    /** 
+     * Save changes made to a persistent object.  
+     * @param transientObject object to update
+     **/
+    void update(T transientObject);
+
+    /** 
+     * Remove the given object from persistent storage in the database.
+     * @param persistentObject object to delete.
+     **/
+    void delete(T persistentObject);
+    
+    /** 
+     * Remove the given object from persistent storage in the database. 
+     * @param s Query to execute 
+     * @return A query object
+     **/
+    Query getQuery(String s);
+    
+    /** Deletes an object of a given Id. Will load the object internally so 
+     * consider using delete (T obj) directly.
+     * @param id Id of record
+     */
+    void delete(K id);
+    
+    
+    /** Delete object from disk.
+     * @param persistentObject to delete
+     * @param session to use
+     * 
+     */
+    void delete(T persistentObject, Session session);
+
+    /** Deletes an object of a given Id. Will load the object internally so consider using delete (T obj) directly.
+     * @param id to delete 
+     * @param session to use
+     */
+    void delete(K id, Session session);
+
+    /**
+     * Loads the given Object.
+     * @param id to load
+     * @param session to use
+     * @return  an object of type T
+     */
+    T load(K id, Session session);
+
+    /**
+     * Loads the given Object.
+     * @param id Id to load
+     * @param session to use
+     * @return An object of type T
+     */
+    T get(K id, Session session);
+
+    /** Save object to disk using given session.
+     * @param o to save
+     * @param session to use
+     * @return the id of the saved object
+     * 
+     */
+    K save(T o, Session session);
+
+    /** Save or update given object.
+     * @param o item to save.
+     * @param session to use
+     * 
+     */
+    void saveOrUpdate(T o, Session session); 
+
+    /** Update given object.
+     * @param o item to update 
+     * @param session to use
+     * 
+     */
+    void update(T o, Session session); 
+    
+    /** Refreshes the object of type T.
+     * @param persistentObject to refresh
+     */
+    void refresh(T persistentObject);
     
     /**
-     * Find using a named query.
-     *
-     * @param queryName the name of the query
-     * @param params the query parameters
-     *
-     * @return the list of entities
+     * Get a query handle.
+     * @param s Query to use
+     * @param session to use
+     * @return Query object
      */
-    List<T> findByNamedQuery(
-        final String queryName,
-        Object... params
-    );
+    Query getQuery(String s, Session session);
+
+    /** FindByExample.
+     * @param exampleInstance to use
+     * @param excludeProperty to exclude
+     * @return A list of objects
+     */
+    List<T> findByExample(T exampleInstance, String... excludeProperty);
+    
+    /** Returns a list of objects.
+     * @return list of objects
+     */
+    List<T> findAll();
+
+    /** Flushes the cache of the currently-used session.
+     * 
+     */
+    void flush();
+    
+    /** Object to evict from cache.
+     * @param obj Object to evict
+     */
+    void evict(Object obj);
+    
+    /** Hibernate wrapper.
+     * @param criterion to filter.
+     * @return list of objects
+     */
+    List<T> findByCriteria(Criterion... criterion);
 }
