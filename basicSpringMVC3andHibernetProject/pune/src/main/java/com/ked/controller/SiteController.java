@@ -20,13 +20,13 @@ import com.ked.util.Constant;
 public class SiteController {
 
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = Constant.LIST, method = RequestMethod.GET)
 	public String list(Map<String, Object> map) {
 		map.put("list", dao.findAll());
 		return PATH + Constant.LIST;
 	}
 
-	@RequestMapping("/deleteById/{id}")
+	@RequestMapping(Constant.DELETED_BY_ID+"/{id}")
 	public String delete(@PathVariable("id") Long id) {
 		frmObject = getFromObject();
 		frmObject = dao.load(id);
@@ -37,7 +37,7 @@ public class SiteController {
 	/*
 	 * This method added new records.
 	 */
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	@RequestMapping(value = Constant.ADD, method = RequestMethod.GET)
 	public String add(Map<String, Object> map) {
 		frmObject = getFromObject();
 		map.put("frmObject", frmObject);
@@ -45,7 +45,7 @@ public class SiteController {
 		return PATH + Constant.ACTION;
 	}
 
-	@RequestMapping(value = "/find/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = Constant.FIND +"/{id}", method = RequestMethod.GET)
 	public String find(Map<String, Object> map, @PathVariable("id") Long id) {
 		frmObject = getFromObject();
 		frmObject = dao.get(id);
@@ -57,7 +57,6 @@ public class SiteController {
 
 	// BELOW CODE CHAGE IN EACH MODLE
 
-
 	@Autowired
 	private SiteDAO<Long, Site> dao;
 	
@@ -68,14 +67,14 @@ public class SiteController {
 		return new Site();
 	}
 	
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@RequestMapping(value = Constant.UPDATE, method = RequestMethod.POST)
 	public String update(@ModelAttribute("frmObject") Site frmObject,
 			BindingResult result, ModelMap model) {
 		dao.saveOrUpdate(frmObject);
 		return Constant.REDIRECT + PATH + Constant.LIST;
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = Constant.ADD , method = RequestMethod.POST)
 	public String add(@ModelAttribute("frmObject") Site frmObject,
 			BindingResult result, ModelMap model) {
 		dao.save(frmObject);

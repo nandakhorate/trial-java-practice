@@ -7,6 +7,8 @@ public class Constant {
 	public static final String UPDATE = "/update";
 	public static final String REDIRECT = "redirect:";
 	public static final String ACTION = "/action";
+	public static final String DELETED_BY_ID = "/deleteById";
+	public static final String FIND = "/find";
 	
 	
 }
