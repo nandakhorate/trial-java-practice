@@ -63,9 +63,8 @@ public class SiteController {
 		
 		validator.validate(frmObject, result);
         if(result.hasErrors()){
-        	model.put("frmObject", frmObject);
-        	model.put("action", Constant.ROOTPATH + PATH + Constant.UPDATE);
-        	model.put("action", Constant.ROOTPATH + PATH + Constant.ADD);
+        	//model.put("frmObject", frmObject);
+        	//model.put("action", Constant.ROOTPATH + PATH + Constant.ADD);
         	model.put("command", "add");
     		model.put("readonly", "false");
             return PATH + Constant.ACTION;
@@ -132,3 +131,6 @@ public class SiteController {
 	}
 	
 }
+	
+	
+

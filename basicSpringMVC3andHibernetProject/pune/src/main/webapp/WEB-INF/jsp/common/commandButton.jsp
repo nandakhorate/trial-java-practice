@@ -2,19 +2,19 @@
 <tr>
 	<c:if test="${command == 'update'}">
 		<td><input class="styled-button-1" type="submit" value="Update"
-			onclick="$.validationEngine.closePrompt('.formError',true)" />
+			onclick="javaScript:isUpdate();return false;" />
 		</td>
 		<td><input type="button" class="styled-button-1" value="Cancel"
 			onclick="cancel()">
 		</td>
-		<td><input class="styled-button-1" type="submit"
+		<!-- <td><input class="styled-button-1" type="submit"
 			value="Close all prompt"
 			onclick="$.validationEngine.closePrompt('.formError',true)" />
-		</td>
+		</td> -->
 	</c:if>
 	<c:if test="${command == 'delete'}">
 		<td><input class="styled-button-1" type="submit" value="Delete"
-			onclick="deleteById()" />
+			onclick="javaScript:deleteById(); return false;" />
 		</td>
 		<td><input type="button" class="styled-button-1" value="Cancel"
 			onclick="cancel()">
@@ -26,9 +26,9 @@
 		<td><input type="button" class="styled-button-1" value="Cancel"
 			onclick="cancel()">
 		</td>
-		<td><input class="styled-button-1" type="submit"
+		<!-- <td><input class="styled-button-1" type="submit"
 			value="Close all prompt"
 			onclick="$.validationEngine.closePrompt('.formError',true)" />
-		</td>
+		</td> -->
 	</c:if>
 </tr>

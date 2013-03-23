@@ -1,10 +1,9 @@
 <script>
-$(document).ready(function() {
+/* $(document).ready(function() {
 	$("#frm").validationEngine()
-});
+}); */
 
 function deleteById() {
-	var checkFound = false;
 	var conf = "";
 	conf = confirm("Are you sure,you want to delete this Site?")
 	if (conf == true) {
@@ -17,5 +16,13 @@ function cancel() {
 	document.frm.action = "<%=request.getContextPath()%>/site/list";
 	document.frm.submit();
 
+}
+
+function isUpdate() {
+	var conf = "";
+	conf = confirm("Are you sure,you want to update this Site?")
+	if (conf == true) {
+		document.frm.submit();
+	}
 }
 </script>
