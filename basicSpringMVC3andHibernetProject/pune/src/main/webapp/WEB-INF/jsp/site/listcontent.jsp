@@ -13,14 +13,17 @@
 								<tr>
 									<th>Site Name</th>
 									<th>Site Address</th>
+									<th>Delete</th>
+									<th>Update</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${list}" var="site">
 									<tr class="gradeX">
-										<td><a href="<%=request.getContextPath()%>/site/find/${site.id}">${site.name}</a>
-										</td>
+										<td><a href="<%=request.getContextPath()%>/site/find/get/${site.id}">${site.name}</a></td>
 										<td>${site.address}</td>
+										<td><a href="<%=request.getContextPath()%>/site/find/delete/${site.id}">DELETE</td>
+										<td><a href="<%=request.getContextPath()%>/site/find/update/${site.id}">UPDATE</td>
 									</tr>
 								</c:forEach>
 							</tbody>

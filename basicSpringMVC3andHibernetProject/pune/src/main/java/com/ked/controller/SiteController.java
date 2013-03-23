@@ -42,16 +42,28 @@ public class SiteController {
 		frmObject = getFromObject();
 		map.put("frmObject", frmObject);
 		map.put("action", Constant.ROOTPATH + PATH + Constant.ADD);
+		map.put("command", "add");
 		return PATH + Constant.ACTION;
 	}
 
-	@RequestMapping(value = Constant.FIND +"/{id}", method = RequestMethod.GET)
-	public String find(Map<String, Object> map, @PathVariable("id") Long id) {
+	@RequestMapping(value = Constant.FIND +"/{command}/{id}", method = RequestMethod.GET)
+	public String find(Map<String, Object> map, @PathVariable("id") Long id, @PathVariable("command") String command) {
 		frmObject = getFromObject();
 		frmObject = dao.get(id);
 		map.put("frmObject", frmObject);
 		map.put("action", Constant.ROOTPATH + PATH + Constant.UPDATE);
-		map.put("find", "find");
+		
+		if(command.equalsIgnoreCase("add")){
+			map.put("command", "add");
+		}else if(command.equalsIgnoreCase("update")){
+			map.put("command", "update");
+		}
+		else if(command.equalsIgnoreCase("delete")){
+			map.put("command", "delete");
+		}
+		else{
+			map.put("command", "get");
+		}
 		return PATH + Constant.ACTION;
 	}
 

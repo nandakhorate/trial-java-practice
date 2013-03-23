@@ -22,40 +22,7 @@
 					<td><form:input path="address" class="validate[required,custom[noSpecialCaracters],length[0,20]] text-input" />
 					</td>
 				</tr>
-				<!-- <tr>
-								<td><input class="styled-button-1" type="submit"
-									value="Submit" />
-								</td>
-								<td><input class="styled-button-1" type="submit" value="Close all prompt" onclick="$.validationEngine.closePrompt('.formError',true)" />
-								</td>
-							</tr> -->
-				<tr>
-					<c:choose>
-						<c:when test="${empty find}">
-							<td><input class="styled-button-1" type="submit"
-								value="Submit" /></td>
-							<td><input class="styled-button-1" type="submit"
-								value="Close all prompt"
-								onclick="$.validationEngine.closePrompt('.formError',true)" />
-							</td>
-						</c:when>
-						<c:otherwise>
-							<td><input class="styled-button-1" type="submit"
-								value="Update"
-								onclick="$.validationEngine.closePrompt('.formError',true)" />
-							</td>
-							<td><input class="styled-button-1" type="submit"
-								value="Delete" onclick="deleteById()" />
-							</td>
-							<td><input type="button" class="styled-button-1"
-								value="Cancel" onclick="cancel()"></td>
-							<td><input class="styled-button-1" type="submit"
-								value="Close all prompt"
-								onclick="$.validationEngine.closePrompt('.formError',true)" />
-							</td>
-						</c:otherwise>
-					</c:choose>
-				</tr>
+				<%@ include file="command.jsp"%>
 			</table>
 		</form:form>
 	</div>
