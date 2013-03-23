@@ -22,7 +22,7 @@
 					<td><form:input path="address" class="validate[required,custom[noSpecialCaracters],length[0,20]] text-input" />
 					</td>
 				</tr>
-				<%@ include file="command.jsp"%>
+				<%@ include file="commandButton.jsp"%>
 			</table>
 		</form:form>
 	</div>
