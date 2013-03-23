@@ -26,6 +26,7 @@ public class SiteController {
 		return PATH + Constant.LIST;
 	}
 
+	
 	@RequestMapping(Constant.DELETED_BY_ID+"/{id}")
 	public String delete(@PathVariable("id") Long id) {
 		frmObject = getFromObject();
