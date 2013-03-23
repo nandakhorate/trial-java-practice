@@ -1,10 +1,11 @@
-
+<c:set var="requestContextPath" value="<%=request.getContextPath()%>" />
+<c:set var="requestController" value="${requestContextPath}${requestMapping}" />
 <div id="content">
 	<div id="column1">
 		<form:form id="frm" class="formular">
 			<h3>Site</h3>
 			<h3>Site</h3>
-			<a href="<%=request.getContextPath()%>/site/add">Add Site</a>
+			<a href="${requestController}/add">Add Site</a>
 			<div id="container">
 				<div class="demo_jui">
 					<c:if test="${!empty list}">
@@ -20,10 +21,10 @@
 							<tbody>
 								<c:forEach items="${list}" var="site">
 									<tr class="gradeX">
-										<td><a href="<%=request.getContextPath()%>/site/find/get/${site.id}">${site.name}</a></td>
+										<td><a href="${requestController}/find/get/${site.id}">${site.name}</a></td>
 										<td>${site.address}</td>
-										<td><a href="<%=request.getContextPath()%>/site/find/delete/${site.id}">DELETE</td>
-										<td><a href="<%=request.getContextPath()%>/site/find/update/${site.id}">UPDATE</td>
+										<td><a href="${requestController}/find/delete/${site.id}">DELETE</td>
+										<td><a href="${requestController}/find/update/${site.id}">UPDATE</td>
 									</tr>
 								</c:forEach>
 							</tbody>

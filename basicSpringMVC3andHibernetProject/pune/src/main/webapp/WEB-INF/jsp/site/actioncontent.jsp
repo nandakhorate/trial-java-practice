@@ -1,3 +1,5 @@
+<c:set var="readonly" value="${readonly}" />
+
 <div id="content">
 	<div id="column1">
 		<h3>Site</h3>
@@ -11,7 +13,7 @@
 							<spring:message code="label.siteName" />
 						</form:label>
 					</td>
-					<td><form:input path="name" class="validate[required,custom[noSpecialCaracters],length[0,20]] text-input" />
+					<td><form:input path="name" readonly="${readonly}" class="validate[required,custom[noSpecialCaracters],length[0,20]] text-input" />
 					</td>
 				</tr>
 				<tr>
@@ -19,7 +21,7 @@
 							<spring:message code="label.siteAddress" />
 						</form:label>
 					</td>
-					<td><form:input path="address" class="validate[required,custom[noSpecialCaracters],length[0,20]] text-input" />
+					<td><form:input path="address" readonly="${readonly}" class="validate[required,custom[noSpecialCaracters],length[0,20]] text-input" />
 					</td>
 				</tr>
 				<%@ include file="../common/commandButton.jsp"%>

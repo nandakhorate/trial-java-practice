@@ -9,6 +9,7 @@ public class Constant {
 	public static final String ACTION = "/action";
 	public static final String DELETED_BY_ID = "/deleteById";
 	public static final String FIND = "/find";
+	public static final String SITE = "/site";
 	
 	
 }
