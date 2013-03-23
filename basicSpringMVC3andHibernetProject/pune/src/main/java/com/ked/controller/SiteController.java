@@ -2,6 +2,8 @@ package com.ked.controller;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,6 +21,18 @@ import com.util.Constant;
 @RequestMapping(Constant.SITE)
 public class SiteController {
 
+	
+		SiteValidator validator = null;
+
+	    public SiteValidator getValidator() {
+	        return validator;
+	    }
+
+	    @Autowired
+	    public void setValidator(SiteValidator validator) {
+	        this.validator = validator;
+	    }
+	
 
 	@RequestMapping(value = Constant.LIST, method = RequestMethod.GET)
 	public String list(Map<String, Object> map) {
@@ -80,20 +94,39 @@ public class SiteController {
 	String PATH = Constant.SITE;
 	Site frmObject = null;
 
+	//private RegistrationValidator validator = null;
+	
 	Site getFromObject() {
 		return new Site();
 	}
 	
 	@RequestMapping(value = Constant.UPDATE, method = RequestMethod.POST)
-	public String update(@ModelAttribute("frmObject") Site frmObject,
+	public String update(@ModelAttribute("frmObject") @Valid Site frmObject,
 			BindingResult result, ModelMap model) {
+		validator.validate(frmObject, result);
+        if(result.hasErrors()){
+        	model.put("command", "update");
+        	model.put("readonly", "false");
+            return PATH + Constant.ACTION;
+        }
 		dao.saveOrUpdate(frmObject);
 		return Constant.REDIRECT + PATH + Constant.LIST;
 	}
 
 	@RequestMapping(value = Constant.ADD , method = RequestMethod.POST)
-	public String add(@ModelAttribute("frmObject") Site frmObject,
+	public String add(@ModelAttribute("frmObject") @Valid Site frmObject,
 			BindingResult result, ModelMap model) {
+		
+		validator.validate(frmObject, result);
+        if(result.hasErrors()){
+        	model.put("frmObject", frmObject);
+        	model.put("action", Constant.ROOTPATH + PATH + Constant.UPDATE);
+        	model.put("action", Constant.ROOTPATH + PATH + Constant.ADD);
+        	model.put("command", "add");
+    		model.put("readonly", "false");
+            return PATH + Constant.ACTION;
+        }
+		
 		dao.save(frmObject);
 		return Constant.REDIRECT + PATH + Constant.LIST;
 	}

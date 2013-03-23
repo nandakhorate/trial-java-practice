@@ -8,6 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+
+
+
 
 @Entity
 @Table(name="SITE")
@@ -20,9 +25,11 @@ public class Site implements Kernel<Long>,Serializable,Cloneable{
 	@Column(name="SITE_ID")
 	private long id;
 	
+	@NotNull
 	@Column(name="NAME")
 	private  String name;
 	
+	@NotNull
 	@Column(name="ADDRESS")
 	private  String address;
 	
