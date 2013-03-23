@@ -1,5 +1,4 @@
-<c:set var="requestContextPath" value="<%=request.getContextPath()%>" />
-<c:set var="requestController" value="${requestContextPath}${requestMapping}" />
+
 <div id="content">
 	<div id="column1">
 		<form:form id="frm" class="formular">

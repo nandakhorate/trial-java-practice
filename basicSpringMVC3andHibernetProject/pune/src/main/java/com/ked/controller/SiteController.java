@@ -27,7 +27,7 @@ public class SiteController {
 	Site frmObject = null;
 	
 	@Autowired
-	private SiteDAO<Long, Site> dao;
+	private SiteDAO<Long, Site> siteDao;
 	
 	SiteValidator validator = null;
 
@@ -53,7 +53,7 @@ public class SiteController {
         	model.put("readonly", "false");
             return PATH + Constant.ACTION;
         }
-		dao.saveOrUpdate(frmObject);
+		siteDao.saveOrUpdate(frmObject);
 		return Constant.REDIRECT + PATH + Constant.LIST;
 	}
 
@@ -70,7 +70,7 @@ public class SiteController {
             return PATH + Constant.ACTION;
         }
 		
-		dao.save(frmObject);
+		siteDao.save(frmObject);
 		return Constant.REDIRECT + PATH + Constant.LIST;
 	}
 
@@ -81,7 +81,7 @@ public class SiteController {
 //-----------------------------------------------------------------
 	@RequestMapping(value = Constant.LIST, method = RequestMethod.GET)
 	public String list(Map<String, Object> map) {
-		map.put("list", dao.findAll());
+		map.put("list", siteDao.findAll());
 		map.put("requestMapping", Constant.SITE);
 		return PATH + Constant.LIST;
 	}
@@ -90,8 +90,8 @@ public class SiteController {
 	@RequestMapping(Constant.DELETED_BY_ID+"/{id}")
 	public String delete(@PathVariable("id") Long id) {
 		frmObject = getFromObject();
-		frmObject = dao.load(id);
-		dao.delete(frmObject);
+		frmObject = siteDao.load(id);
+		siteDao.delete(frmObject);
 		return Constant.REDIRECT + PATH + Constant.LIST;
 	}
 
@@ -102,6 +102,7 @@ public class SiteController {
 	public String add(Map<String, Object> map) {
 		frmObject = getFromObject();
 		map.put("frmObject", frmObject);
+		map.put("requestMapping", Constant.SITE);
 		map.put("action", Constant.ROOTPATH + PATH + Constant.ADD);
 		map.put("command", "add");
 		map.put("readonly", "false");
@@ -111,15 +112,17 @@ public class SiteController {
 	@RequestMapping(value = Constant.FIND +"/{command}/{id}", method = RequestMethod.GET)
 	public String find(Map<String, Object> map, @PathVariable("id") Long id, @PathVariable("command") String command) {
 		frmObject = getFromObject();
-		frmObject = dao.get(id);
+		frmObject = siteDao.get(id);
 		map.put("frmObject", frmObject);
 		map.put("action", Constant.ROOTPATH + PATH + Constant.UPDATE);
 		
 		if(command.equalsIgnoreCase("update")){
+			map.put("requestMapping", Constant.SITE);
 			map.put("command", "update");
 			map.put("readonly", "false");
 		}
 		else if(command.equalsIgnoreCase("delete")){
+			map.put("requestMapping", Constant.SITE);
 			map.put("command", "delete");
 			map.put("readonly", "true");
 		}

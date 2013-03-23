@@ -4,7 +4,8 @@
 	<div id="column1">
 		<h3>Site 111</h3>
 		<form:form method="post" action="${action}" commandName="frmObject" name="frm" id="frm" class="formular">
-			<form:errors path="*" cssClass="errorblock" element="div" />
+			
+			<table><tr><form:errors path="*" cssClass="error" element="div" /></tr></table>
 			<table>
 				<form:hidden path="id" />
 
