@@ -49,6 +49,7 @@ public class SiteController {
 			BindingResult result, ModelMap model) {
 		validator.validate(frmObject, result);
         if(result.hasErrors()){
+        	model.put("requestMapping", Constant.SITE);
         	model.put("command", "update");
         	model.put("readonly", "false");
             return PATH + Constant.ACTION;
@@ -65,6 +66,7 @@ public class SiteController {
         if(result.hasErrors()){
         	//model.put("frmObject", frmObject);
         	//model.put("action", Constant.ROOTPATH + PATH + Constant.ADD);
+        	model.put("requestMapping", Constant.SITE);
         	model.put("command", "add");
     		model.put("readonly", "false");
             return PATH + Constant.ACTION;
