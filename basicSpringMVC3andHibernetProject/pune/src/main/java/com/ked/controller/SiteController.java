@@ -21,19 +21,65 @@ import com.util.Constant;
 @RequestMapping(Constant.SITE)
 public class SiteController {
 
+	// BELOW CODE CHAGE IN EACH MODLE
+	// Just Replace Site string with your Object name.
+	String PATH = Constant.SITE;
+	Site frmObject = null;
 	
-		SiteValidator validator = null;
-
-	    public SiteValidator getValidator() {
-	        return validator;
-	    }
-
-	    @Autowired
-	    public void setValidator(SiteValidator validator) {
-	        this.validator = validator;
-	    }
+	@Autowired
+	private SiteDAO<Long, Site> dao;
 	
+	SiteValidator validator = null;
 
+    @Autowired
+    public void setValidator(SiteValidator validator) {
+        this.validator = validator;
+    }
+
+	
+	Site getFromObject() {
+		return new Site();
+	}
+    public SiteValidator getValidator() {
+        return validator;
+    }
+    
+	@RequestMapping(value = Constant.UPDATE, method = RequestMethod.POST)
+	public String update(@ModelAttribute("frmObject") @Valid Site frmObject,
+			BindingResult result, ModelMap model) {
+		validator.validate(frmObject, result);
+        if(result.hasErrors()){
+        	model.put("command", "update");
+        	model.put("readonly", "false");
+            return PATH + Constant.ACTION;
+        }
+		dao.saveOrUpdate(frmObject);
+		return Constant.REDIRECT + PATH + Constant.LIST;
+	}
+
+	@RequestMapping(value = Constant.ADD , method = RequestMethod.POST)
+	public String add(@ModelAttribute("frmObject") @Valid Site frmObject,
+			BindingResult result, ModelMap model) {
+		
+		validator.validate(frmObject, result);
+        if(result.hasErrors()){
+        	model.put("frmObject", frmObject);
+        	model.put("action", Constant.ROOTPATH + PATH + Constant.UPDATE);
+        	model.put("action", Constant.ROOTPATH + PATH + Constant.ADD);
+        	model.put("command", "add");
+    		model.put("readonly", "false");
+            return PATH + Constant.ACTION;
+        }
+		
+		dao.save(frmObject);
+		return Constant.REDIRECT + PATH + Constant.LIST;
+	}
+
+
+
+	
+	
+//-----------------------------------------------------------------
 	@RequestMapping(value = Constant.LIST, method = RequestMethod.GET)
 	public String list(Map<String, Object> map) {
 		map.put("list", dao.findAll());
@@ -84,51 +130,5 @@ public class SiteController {
 		}
 		return PATH + Constant.ACTION;
 	}
-
-	// BELOW CODE CHAGE IN EACH MODLE
-	// Just Replace Site string with your Object name.
 	
-	@Autowired
-	private SiteDAO<Long, Site> dao;
-	
-	String PATH = Constant.SITE;
-	Site frmObject = null;
-
-	//private RegistrationValidator validator = null;
-	
-	Site getFromObject() {
-		return new Site();
-	}
-	
-	@RequestMapping(value = Constant.UPDATE, method = RequestMethod.POST)
-	public String update(@ModelAttribute("frmObject") @Valid Site frmObject,
-			BindingResult result, ModelMap model) {
-		validator.validate(frmObject, result);
-        if(result.hasErrors()){
-        	model.put("command", "update");
-        	model.put("readonly", "false");
-            return PATH + Constant.ACTION;
-        }
-		dao.saveOrUpdate(frmObject);
-		return Constant.REDIRECT + PATH + Constant.LIST;
-	}
-
-	@RequestMapping(value = Constant.ADD , method = RequestMethod.POST)
-	public String add(@ModelAttribute("frmObject") @Valid Site frmObject,
-			BindingResult result, ModelMap model) {
-		
-		validator.validate(frmObject, result);
-        if(result.hasErrors()){
-        	model.put("frmObject", frmObject);
-        	model.put("action", Constant.ROOTPATH + PATH + Constant.UPDATE);
-        	model.put("action", Constant.ROOTPATH + PATH + Constant.ADD);
-        	model.put("command", "add");
-    		model.put("readonly", "false");
-            return PATH + Constant.ACTION;
-        }
-		
-		dao.save(frmObject);
-		return Constant.REDIRECT + PATH + Constant.LIST;
-	}
-
 }
