@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ked.idao.ISiteDAO;
 import com.ked.pojo.Site;
+import com.ked.util.Constant;
 import com.ked.validator.SiteValidator;
-import com.util.Constant;
 
 @Controller
 @RequestMapping(Constant.SITE)
