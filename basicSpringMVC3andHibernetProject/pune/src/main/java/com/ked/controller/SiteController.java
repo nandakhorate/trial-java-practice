@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.ked.idao.SiteDAO;
+import com.ked.idao.ISiteDAO;
 import com.ked.pojo.Site;
 import com.util.Constant;
 
@@ -27,7 +27,7 @@ public class SiteController {
 	Site frmObject = null;
 	
 	@Autowired
-	private SiteDAO<Long, Site> siteDao;
+	private ISiteDAO<Long, Site> siteDao;
 	
 	SiteValidator validator = null;
 
@@ -83,7 +83,7 @@ public class SiteController {
 //-----------------------------------------------------------------
 	@RequestMapping(value = Constant.LIST, method = RequestMethod.GET)
 	public String list(Map<String, Object> map) {
-		map.put("list", siteDao.findAll());
+		map.put("list", siteDao.findByCriteria());
 		map.put("requestMapping", Constant.SITE);
 		return PATH + Constant.LIST;
 	}
