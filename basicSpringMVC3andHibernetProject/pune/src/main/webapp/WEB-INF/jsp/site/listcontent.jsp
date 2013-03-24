@@ -13,8 +13,7 @@
 								<tr>
 									<th>Site Name</th>
 									<th>Site Address</th>
-									<th>Delete</th>
-									<th>Update</th>
+									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -22,8 +21,8 @@
 									<tr class="gradeX">
 										<td><a href="${requestController}/find/get/${site.id}">${site.name}</a></td>
 										<td>${site.address}</td>
-										<td><a href="${requestController}/find/delete/${site.id}">DELETE</td>
-										<td><a href="${requestController}/find/update/${site.id}">UPDATE</td>
+										<td width="200"><a href="${requestController}/find/delete/${site.id}">DELETE</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<a href="${requestController}/find/update/${site.id}">UPDATE</a></td>
 									</tr>
 								</c:forEach>
 							</tbody>
