@@ -4,7 +4,7 @@
 		<form:form id="frm" class="formular">
 			<h3>Site</h3>
 			<h3>Site</h3>
-			<a href="${requestController}/add">Add Site</a>
+			<a href="${requestController}/list">Refresh Site</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${requestController}/add">Add Site</a>
 			<div id="container">
 				<div class="demo_jui">
 					<c:if test="${!empty list}">
