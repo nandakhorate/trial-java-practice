@@ -20,14 +20,87 @@ public interface GenericDAO<K,T extends Kernel<K>> {
      * @param id Delete key
      */
     public void delete(K id) ;
+    
+    /** Delete object.
+     * @param persistentObject to delete
+     * @param session to use
+     * 
+     */
+    public void delete(T persistentObject, Session session) ;
+    
+    /** Deletes an object of a given Id. Will load the object internally so consider using delete (T obj) directly.
+     * @param id to delete 
+     * @param session to use
+     */
+    public void delete(K id, Session session) ;
+    
+    /**
+     * Item to save.
+     * @param o object to save
+     * @return K
+     */
+    public K save(T o) ;
+    /**
+     * Item to saveOrUpdate.
+     * @param o item to save.
+     */
+    public void saveOrUpdate(T o) ;
+    /** Save object.
+     * @param o to save 
+     * @param session to use
+     * @return the id of the saved object
+     * 
+     */
+    public K save(T o, Session session) ;
+    /** Save Or Update object.
+     * @param o to save
+     * @param session to use.
+     * 
+     */
+    public void saveOrUpdate(T o, Session session) ;
 
+    /**
+     * Update object.
+     * @param o object to update
+     */
+    public void update(T o) ;
+    
+    /** Update record.
+     * @param o to update
+     * @param session to use
+     * 
+     */
+    public void update(T o, Session session) ;
+    
+    /** Flushes the cache of the currently-used session.
+     * 
+     */
+    public void flush() ;
+    
+    /** Object to evict from cache.
+     * @param obj Object to evict
+     */
+    public void evict(Object obj);
+    
+    /**
+     * Item to refresh.
+     * @param o object to refresh
+     */
+    public void refresh(T o) ;
+//----------------------------------------------------------------------
     /**
      * Loads the given Object.
      * @param id to load
      * @return T Loaded object
      */
     public T load(K id) ;
-
+    /**
+     * Loads the given Object.
+     * @param id to load
+     * @param session to use
+     * @return  an object of type T
+     */
+    public T load(K id, Session session) ;
 
     /**
      * Loads the given Object.
@@ -35,31 +108,6 @@ public interface GenericDAO<K,T extends Kernel<K>> {
      * @return An object of type T
      */
     public T get(K id) ;
-
-    /**
-     * Item to save.
-     * @param o object to save
-     * @return K
-     */
-    public K save(T o) ;
-
-   /**
-     * Item to refresh.
-     * @param o object to refresh
-     */
-    public void refresh(T o) ;
-
-    /**
-     * Item to saveOrUpdate.
-     * @param o item to save.
-     */
-    public void saveOrUpdate(T o) ;
-
-    /**
-     * Update object.
-     * @param o object to update
-     */
-    public void update(T o) ;
 
     /**
      * Gets the current session in use (creates one if necessary).
@@ -80,26 +128,6 @@ public interface GenericDAO<K,T extends Kernel<K>> {
      */
     public SessionFactory getSessionFactory() ;
 
-    /** Delete object.
-     * @param persistentObject to delete
-     * @param session to use
-     * 
-     */
-    public void delete(T persistentObject, Session session) ;
-
-    /** Deletes an object of a given Id. Will load the object internally so consider using delete (T obj) directly.
-     * @param id to delete 
-     * @param session to use
-     */
-    public void delete(K id, Session session) ;
-    /**
-     * Loads the given Object.
-     * @param id to load
-     * @param session to use
-     * @return  an object of type T
-     */
-    public T load(K id, Session session) ;
-
     /**
      * Loads the given Object.
      * @param id Id to load
@@ -107,29 +135,6 @@ public interface GenericDAO<K,T extends Kernel<K>> {
      * @return An object of type T
      */
     public T get(K id, Session session) ;
-
-    /** Save object.
-     * @param o to save 
-     * @param session to use
-     * @return the id of the saved object
-     * 
-     */
-    public K save(T o, Session session) ;
-
-    /** Save Or Update object.
-     * @param o to save
-     * @param session to use.
-     * 
-     */
-    public void saveOrUpdate(T o, Session session) ;
-
-    /** Update record.
-     * @param o to update
-     * @param session to use
-     * 
-     */
-    public void update(T o, Session session) ;
-
 
     /**
      * GetQuery.
@@ -149,16 +154,6 @@ public interface GenericDAO<K,T extends Kernel<K>> {
      * @return A list of all the objects
      */
     public List<T> findAll() ;
-    
-    /** Flushes the cache of the currently-used session.
-     * 
-     */
-    public void flush() ;
-    
-    /** Object to evict from cache.
-     * @param obj Object to evict
-     */
-    public void evict(Object obj);
     
     
     /** FindByExample.
