@@ -78,7 +78,7 @@ public class HibernateDaoFactory implements ApplicationContextAware, BeanNameAwa
 	 * @return a SiteDao instance
 	 */
 	@SuppressWarnings("unchecked")
-	public SiteDao<Long, Site> getSiteDao() {
+	public static SiteDao<Long, Site>  getSiteDao() {
 		return (SiteDao<Long, Site>) getBean("siteDaoImpl"); 
 	}
 
