@@ -40,7 +40,7 @@
 />
     
 <cache
-    name="com.pune.city.model.obj.pune.Site"
+    name="com.ked.pojo.Site"
     maxElementsInMemory="5000"
     eternal="false"
     timeToIdleSeconds="300"
