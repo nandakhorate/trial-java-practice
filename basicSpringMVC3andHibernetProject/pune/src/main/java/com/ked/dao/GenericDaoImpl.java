@@ -15,22 +15,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ked.idao.GenericDAO;
+import com.ked.idao.GenericDao;
 import com.ked.pojo.Kernel;
 
 
 @Repository
 @Transactional
-public abstract class GenericDAOImpl<K,T extends Kernel<K>> implements GenericDAO<K,T> {
+public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDao<K,T> {
 	
-	private static final Logger	LOGGER	= LoggerFactory.getLogger(GenericDAOImpl.class);
+	private static final Logger	LOGGER	= LoggerFactory.getLogger(GenericDaoImpl.class);
 	
 	protected Class<T>			persistentObject;
 	
 	@Autowired
 	protected SessionFactory sessionFactory;
 
-	public GenericDAOImpl(Class<T> persistentObject) {
+	public GenericDaoImpl(Class<T> persistentObject) {
 		this.persistentObject = persistentObject;
 		LOGGER.debug("BaseJpaDao(): instantiated DAO of type " + this.persistentObject);
 	}

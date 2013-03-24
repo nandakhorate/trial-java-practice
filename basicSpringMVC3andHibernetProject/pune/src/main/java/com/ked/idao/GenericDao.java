@@ -10,7 +10,7 @@ import org.hibernate.criterion.Criterion;
 import com.ked.pojo.Kernel;
 
 
-public interface GenericDAO<K,T extends Kernel<K>> {
+public interface GenericDao<K,T extends Kernel<K>> {
 	  /**
      * Delete persistentObject from DB.
      * @param persistentObject object to delete.

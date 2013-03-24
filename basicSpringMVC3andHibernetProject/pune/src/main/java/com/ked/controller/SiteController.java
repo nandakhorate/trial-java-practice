@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.ked.idao.ISiteDAO;
+import com.ked.idao.SiteDao;
 import com.ked.pojo.Site;
 import com.ked.util.Constant;
 import com.ked.validator.SiteValidator;
@@ -28,7 +28,7 @@ public class SiteController {
 	Site frmObject = null;
 	
 	@Autowired
-	private ISiteDAO<Long, Site> siteDao;
+	private SiteDao<Long, Site> siteDao;
 	
 	SiteValidator validator = null;
 
