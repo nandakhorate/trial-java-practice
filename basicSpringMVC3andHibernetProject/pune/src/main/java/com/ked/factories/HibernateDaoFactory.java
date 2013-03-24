@@ -24,7 +24,6 @@ public class HibernateDaoFactory implements ApplicationContextAware, BeanNameAwa
 	/** Bean Name. */
 	private static String beanName;
 	
-	private HibernateDaoFactory(){}
 
 	/** Return an instance of this class.
 	 * @return an instance of this class
@@ -80,7 +79,7 @@ public class HibernateDaoFactory implements ApplicationContextAware, BeanNameAwa
 	 * @return a SiteDao instance
 	 */
 	@SuppressWarnings("unchecked")
-	public SiteDao<Long, Site>  getSiteDao() {
+	public static SiteDao<Long, Site>  getSiteDao() {
 		return (SiteDao<Long, Site>) getBean("siteDaoImpl"); 
 	}
 

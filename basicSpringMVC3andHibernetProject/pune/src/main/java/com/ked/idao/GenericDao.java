@@ -40,11 +40,6 @@ public interface GenericDao<K,T extends Kernel<K>> {
      * @return K
      */
     public K save(T o) ;
-    /**
-     * Item to saveOrUpdate.
-     * @param o item to save.
-     */
-    public void saveOrUpdate(T o) ;
     /** Save object.
      * @param o to save 
      * @param session to use
@@ -52,6 +47,12 @@ public interface GenericDao<K,T extends Kernel<K>> {
      * 
      */
     public K save(T o, Session session) ;
+    /**
+     * Item to saveOrUpdate.
+     * @param o item to save.
+     */
+    public void saveOrUpdate(T o) ;
+
     /** Save Or Update object.
      * @param o to save
      * @param session to use.
@@ -87,7 +88,6 @@ public interface GenericDao<K,T extends Kernel<K>> {
      * @param o object to refresh
      */
     public void refresh(T o) ;
-//----------------------------------------------------------------------
     /**
      * Loads the given Object.
      * @param id to load
@@ -108,6 +108,13 @@ public interface GenericDao<K,T extends Kernel<K>> {
      * @return An object of type T
      */
     public T get(K id) ;
+    /**
+     * Loads the given Object.
+     * @param id Id to load
+     * @param session Session to use
+     * @return An object of type T
+     */
+    public T get(K id, Session session) ;
 
     /**
      * Gets the current session in use (creates one if necessary).
@@ -121,21 +128,6 @@ public interface GenericDao<K,T extends Kernel<K>> {
      * @return Query object
      */
     public Query getQuery(String s);
-
-    /**
-     * Get Session factory.
-     * @return SessionFactory Object
-     */
-    public SessionFactory getSessionFactory() ;
-
-    /**
-     * Loads the given Object.
-     * @param id Id to load
-     * @param session Session to use
-     * @return An object of type T
-     */
-    public T get(K id, Session session) ;
-
     /**
      * GetQuery.
      * @param s to return
@@ -143,6 +135,12 @@ public interface GenericDao<K,T extends Kernel<K>> {
      * @return Query object
      */
     public Query getQuery(String s, Session session) ;
+    /**
+     * Get Session factory.
+     * @return SessionFactory Object
+     */
+    public SessionFactory getSessionFactory() ;
+
     /** Wrapper around hibernate functions.
      * @param criterion to use
      * @return A list of matching objects

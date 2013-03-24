@@ -26,37 +26,39 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
 	private static final Logger	LOGGER	= LoggerFactory.getLogger(GenericDaoImpl.class);
 	
 	protected Class<T>			persistentObject;
-	
-	@Autowired
-	protected SessionFactory sessionFactory;
-
-	public GenericDaoImpl(Class<T> persistentObject) {
-		this.persistentObject = persistentObject;
-		LOGGER.debug("BaseJpaDao(): instantiated DAO of type " + this.persistentObject);
-	}
-	
+    /** Class type. */
+    Class<T> type;
+    /** Sessionfactory in use. Filled in by Spring. */ 
+    private SessionFactory sessionFactory = null;
+   
+  
+    
     /**
-     * Set session factory.
-     * @param sessionFactory object
+     * Default bean constructor for spring.
      */
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public GenericDaoImpl() {
+            // default constructor for spring
+    }
+    
+    /**
+     * Constructor.
+     * @param type class type
+     */
+    public GenericDaoImpl(Class<T> type) {
+        this.type = type;
     }
 
     /** Helper functions.
      * @return the currently set class
      */
-    
     public Class<T> getPersistentClass() {
-        return this.persistentObject;
+        return this.type;
     }
     
     /**
      * Delete persistentObject from DB.
      * @param persistentObject object to delete.
      */
-    @Override
     public void delete(T persistentObject) {
         getSession().delete(persistentObject);
     }
@@ -64,7 +66,6 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
     /** Deletes an object of a given Id. Will load the object internally so consider using delete (T obj) directly
      * @param id Delete key
      */
-    @Override
     public void delete(K id) {
         getSession().delete(load(id));
     }
@@ -75,9 +76,8 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
      * @return T Loaded object
      */
     @SuppressWarnings("unchecked")
-	@Override
     public T load(K id) {
-        return (T) getSession().load(this.persistentObject, (Serializable) id);
+        return (T) getSession().load(this.type, (Serializable) id);
     }
 
 
@@ -87,9 +87,8 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
      * @return An object of type T
      */
     @SuppressWarnings("unchecked")
-    @Override
     public T get(K id) {
-        return (T) getSession().get(this.persistentObject, (Serializable) id);
+        return (T) getSession().get(this.type, (Serializable) id);
     }
 
     /**
@@ -98,7 +97,6 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
      * @return K
      */
     @SuppressWarnings("unchecked")
-    @Override
     public K save(T o) {
         return (K) getSession().save(o);
     }
@@ -107,7 +105,7 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
      * Item to refresh.
      * @param o object to refresh
      */
-    @Override
+    @SuppressWarnings("unchecked")
     public void refresh(T o) {
         getSession().refresh(o);
     }
@@ -116,7 +114,6 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
      * Item to saveOrUpdate.
      * @param o item to save.
      */
-    @Override
     public void saveOrUpdate(T o) {
         getSession().saveOrUpdate(o);
     }
@@ -125,7 +122,6 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
      * Update object.
      * @param o object to update
      */
-    @Override
     public void update(T o) {
         getSession().update(o);
     }
@@ -134,7 +130,6 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
      * Gets the current session in use (creates one if necessary).
      * @return Session object 
      */
-    @Override
     public Session getSession() {
         return sessionFactory.getCurrentSession();
     }
@@ -144,7 +139,6 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
      * @param s Query to execute.
      * @return Query object
      */
-    @Override
     public Query getQuery(String s) {
         return getSession().createQuery(s);
     }
@@ -153,17 +147,25 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
      * Get Session factory.
      * @return SessionFactory Object
      */
-    @Override
     public SessionFactory getSessionFactory() {
         return sessionFactory;
     }
+
+    /**
+     * Set session factory.
+     * @param sessionFactory object
+     */
+    @Autowired
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
 
     /** Delete object.
      * @param persistentObject to delete
      * @param session to use
      * 
      */
-    @Override
     public void delete(T persistentObject, Session session) {
         session.delete(persistentObject);
     }
@@ -172,7 +174,6 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
      * @param id to delete 
      * @param session to use
      */
-    @Override
     public void delete(K id, Session session) {
         session.delete(load(id));
     }
@@ -184,9 +185,8 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
      * @return  an object of type T
      */
     @SuppressWarnings("unchecked")
-    @Override
     public T load(K id, Session session) {
-        return (T) session.load(this.persistentObject, (Serializable) id);
+        return (T) session.load(this.type, (Serializable) id);
     }
 
     /**
@@ -196,9 +196,8 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
      * @return An object of type T
      */
     @SuppressWarnings("unchecked")
-    @Override
     public T get(K id, Session session) {
-        return (T) session.get(this.persistentObject, (Serializable) id);
+        return (T) session.get(this.type, (Serializable) id);
     }
 
     /** Save object.
@@ -208,7 +207,6 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
      * 
      */
     @SuppressWarnings("unchecked")
-    @Override
     public K save(T o, Session session) {
         return (K) session.save(o);
     }
@@ -218,7 +216,6 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
      * @param session to use.
      * 
      */
-    @Override
     public void saveOrUpdate(T o, Session session) {
         session.saveOrUpdate(o);
     }
@@ -228,7 +225,6 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
      * @param session to use
      * 
      */
-    @Override
     public void update(T o, Session session) {
         session.update(o);
     }
@@ -240,7 +236,6 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
      * @param session  to use
      * @return Query object
      */
-    @Override
     public Query getQuery(String s, Session session) {
         return session.createQuery(s);
     }
@@ -250,7 +245,6 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
      * @return A list of matching objects
      */
     @SuppressWarnings("unchecked")
-    @Override
     public List<T> findByCriteria(Criterion... criterion) {
         Criteria crit =  getSession().createCriteria(getPersistentClass());
         
@@ -264,7 +258,7 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
     /** FindAll.
      * @return A list of all the objects
      */
-    @Override
+    @SuppressWarnings("unchecked")
     public List<T> findAll() {
         return findByCriteria();
     }
@@ -272,7 +266,6 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
     /** Flushes the cache of the currently-used session.
      * 
      */
-    @Override
     public void flush() {
         getSession().flush();
     }
@@ -280,7 +273,6 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
     /** Object to evict from cache.
      * @param obj Object to evict
      */
-    @Override
     public void evict(Object obj) {
         getSession().evict(obj);
     }
@@ -292,7 +284,6 @@ public abstract class GenericDaoImpl<K,T extends Kernel<K>> implements GenericDa
      * @return List of matching objects
      */
     @SuppressWarnings("unchecked")
-    @Override
     public List<T> findByExample(T exampleInstance, String... excludeProperty) {
         Criteria crit = getSession().createCriteria(getPersistentClass());
         Example example = Example.create(exampleInstance);

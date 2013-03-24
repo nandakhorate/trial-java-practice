@@ -22,6 +22,7 @@ import com.ked.validator.SiteValidator;
 @RequestMapping(Constant.SITE)
 public class SiteController {
 	
+	
 	// BELOW CODE CHAGE IN EACH MODLE
 	// Just Replace Site string with your Object name.
 	String PATH = Constant.SITE;
@@ -34,10 +35,6 @@ public class SiteController {
         this.validator = validator;
     }
 
-    public static HibernateDaoFactory getDao() {
-		return HibernateDaoFactory.getInstance();
-	}
-	
 	Site getFromObject() {
 		return new Site();
 	}
@@ -55,7 +52,9 @@ public class SiteController {
         	model.put("readonly", "false");
             return PATH + Constant.ACTION;
         }
-		getDao().getSiteDao().saveOrUpdate(frmObject);
+		HibernateDaoFactory.getSiteDao().saveOrUpdate(frmObject);
+		HibernateDaoFactory.getSiteDao().flush();
+		HibernateDaoFactory.getSiteDao().evict(frmObject);
 		return Constant.REDIRECT + PATH + Constant.LIST;
 	}
 
@@ -71,14 +70,16 @@ public class SiteController {
             return PATH + Constant.ACTION;
         }
 		
-		getDao().getSiteDao().save(frmObject);
+		HibernateDaoFactory.getSiteDao().save(frmObject);
+		HibernateDaoFactory.getSiteDao().flush();
+		HibernateDaoFactory.getSiteDao().evict(frmObject);
 		return Constant.REDIRECT + PATH + Constant.LIST;
 	}
 	
 //-----------------------------------------------------------------
 	@RequestMapping(value = Constant.LIST, method = RequestMethod.GET)
 	public String list(Map<String, Object> map) {
-		map.put("list", getDao().getSiteDao().findByCriteria());
+		map.put("list", HibernateDaoFactory.getSiteDao().findByCriteria());
 		map.put("requestMapping", Constant.SITE);
 		return PATH + Constant.LIST;
 	}
@@ -87,8 +88,10 @@ public class SiteController {
 	@RequestMapping(Constant.DELETED_BY_ID+"/{id}")
 	public String delete(@PathVariable("id") Long id) {
 		frmObject = getFromObject();
-		frmObject = getDao().getSiteDao().load(id);
-		getDao().getSiteDao().delete(frmObject);
+		frmObject = HibernateDaoFactory.getSiteDao().load(id);
+		HibernateDaoFactory.getSiteDao().delete(frmObject);
+		HibernateDaoFactory.getSiteDao().flush();
+		HibernateDaoFactory.getSiteDao().evict(frmObject);
 		return Constant.REDIRECT + PATH + Constant.LIST;
 	}
 
@@ -109,7 +112,7 @@ public class SiteController {
 	@RequestMapping(value = Constant.FIND +"/{command}/{id}", method = RequestMethod.GET)
 	public String find(Map<String, Object> map, @PathVariable("id") Long id, @PathVariable("command") String command) {
 		frmObject = getFromObject();
-		frmObject = getDao().getSiteDao().get(id);
+		frmObject = HibernateDaoFactory.getSiteDao().get(id);
 		map.put("frmObject", frmObject);
 		map.put("action", Constant.ROOTPATH + PATH + Constant.UPDATE);
 		
